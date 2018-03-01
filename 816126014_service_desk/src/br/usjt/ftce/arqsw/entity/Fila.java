@@ -18,4 +18,9 @@ public class Fila {
 		this.nome = nome;
 	}
 	
+	@Override
+	public String toString() {
+		return "Fila [id=" + id + ", nome=" + nome + "]";
+	}
+	
 }
