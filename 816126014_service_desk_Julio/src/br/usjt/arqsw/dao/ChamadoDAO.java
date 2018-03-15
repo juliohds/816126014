@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import br.usjt.arqsw.entity.Chamado;
 import br.usjt.arqsw.entity.Fila;
-import br.usjt.arqsw.service.FilaService;
 
 /**
  * 
@@ -84,13 +83,9 @@ public class ChamadoDAO {
 				chamado.setDT_FECHAMENTO(rs.getDate("DT_FECHAMENTO"));
 				
 				int id_fila = rs.getInt("ID_FILA");
-				
-				if(id_fila==1){
-					FilaService fs = new FilaService();							
-					fila = fs.carregar(id_fila);
-					chamado.setFila(fila);
-				}
-				
+				fila.setId(id_fila);
+				chamado.setFila(fila);
+								
 				lista.add(chamado);
 									
 				}
