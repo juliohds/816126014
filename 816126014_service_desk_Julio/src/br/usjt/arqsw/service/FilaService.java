@@ -16,7 +16,7 @@ public class FilaService {
 	private FilaDAO dao;
 	
 	public FilaService() {
-		dao = new FilaDAO();
+		
 	}
 	public ArrayList<Fila> listarFilas() throws IOException{
 				

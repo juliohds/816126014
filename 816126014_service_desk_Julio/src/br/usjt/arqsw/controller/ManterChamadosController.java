@@ -2,11 +2,11 @@ package br.usjt.arqsw.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,15 +27,20 @@ import br.usjt.arqsw.service.FilaService;
 public class ManterChamadosController {
 	
 	private FilaService filaService;
-	
-	public ManterChamadosController() {
-		filaService = new FilaService();
+	private ChamadoService chamadoService;
+		
+	@Autowired
+	public ManterChamadosController(FilaService filaService, ChamadoService chamadoService) {
+		this.filaService = filaService;
+		this.chamadoService = chamadoService;
+		
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
+	
 	@RequestMapping("index")
 	public String inicio() {
 		return "index";
@@ -62,6 +67,31 @@ public class ManterChamadosController {
 			return "Erro";
 		}
 	}
+		
+	@RequestMapping("/listar_filas")
+	public String novoChamado(Model model){
+		try{
+					
+			model.addAttribute("lista",listarFilas());			
+			return "NovoChamado";
+		}catch(IOException e){
+			e.printStackTrace();
+			return "Erro";
+		}
+	}
+	
+	@RequestMapping("/novo_chamado")
+	public String criarChamado(@Valid Chamado chamado, BindingResult result, Model model) {
+			try {
+				int id = chamadoService.criarChamado(chamado);
+				chamado.setId(id);
+				return "ChamadoCriadoComSucesso";
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "Erro";
+			}
+	}
+
 	
 	//TODO Complete o método listarChamadosExibir do controller. 
 	
@@ -78,7 +108,7 @@ public class ManterChamadosController {
 			//model.addAttribute("fila", fila);
 
 			// TODO CÃ³digo para carregar os chamados									
-			ChamadoService chamadoService = new ChamadoService();			
+			//ChamadoService chamadoService = new ChamadoService();			
 			model.addAttribute("chamados", chamadoService.listarChamados(fila));
 			//model.addAttribute("chamados", listarChamados());
 			
