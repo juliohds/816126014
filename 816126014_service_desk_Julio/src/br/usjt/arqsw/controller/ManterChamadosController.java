@@ -2,6 +2,7 @@ package br.usjt.arqsw.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -96,7 +97,7 @@ public class ManterChamadosController {
 	//TODO Complete o método listarChamadosExibir do controller. 
 	
 	@RequestMapping("/listar_chamados_exibir")
-	public String listarChamadosExibir(@Valid Fila fila, BindingResult result, Model model,@Valid Chamado chamado) {
+	public String listarChamadosExibir(@Valid Fila fila, BindingResult result, Model model) {
 		try {
 			if (result.hasFieldErrors("id")) {
 				model.addAttribute("filas", listarFilas());
@@ -104,13 +105,11 @@ public class ManterChamadosController {
 				return "ChamadoListar";
 				//return "redirect:listar_filas_exibir";
 			}
-			fila = filaService.carregar(fila.getId());
-			//model.addAttribute("fila", fila);
-
-			// TODO CÃ³digo para carregar os chamados									
-			//ChamadoService chamadoService = new ChamadoService();			
-			model.addAttribute("chamados", chamadoService.listarChamados(fila));
-			//model.addAttribute("chamados", listarChamados());
+			fila = filaService.carregar(fila.getId());	
+			model.addAttribute("fila", fila);
+			
+			ArrayList<Chamado> chamados = chamadoService.listarChamados(fila);
+			model.addAttribute("chamados", chamados);
 			
 			return "ChamadoListarExibir";
 
@@ -118,6 +117,6 @@ public class ManterChamadosController {
 			e.printStackTrace();
 			return "Erro";
 		}
-	}
-
+	}	
+	
 }
