@@ -3,6 +3,8 @@ package br.usjt.arqsw.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -17,11 +19,13 @@ public class Login implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public static final String LOGADO = "logado";
-	
-		@NotNull
+					
+		@NotNull(message="O usuario não pode ser vazio")
+		@Min(value=10, message="O user não pode ser vazia")
 		private String username;
-	
-		@NotNull
+		
+		@NotNull(message="O usuario não pode ser vazio")
+		@Min(value=10, message="O user não pode ser vazia")		
 		private String password;
 	
 	public String getUsername() {

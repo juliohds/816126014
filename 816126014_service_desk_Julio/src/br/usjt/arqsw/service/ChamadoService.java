@@ -3,6 +3,7 @@ package br.usjt.arqsw.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,19 +25,19 @@ public class ChamadoService {
 		this.dao = dao;
 	}
 	
-	public int criarChamado(Chamado chamado) throws IOException{
+	public void criarChamado(Chamado chamado) throws IOException{
 				
 		chamado.setStatus(Chamado.ABERTO);
 		chamado.setDT_ABERTURA(new Date());
 		chamado.setDT_FECHAMENTO(null);
 
-		return dao.criarChamado(chamado);
+		dao.criarChamado(chamado);
 	}
 	
 	
-	public ArrayList<Chamado> listarChamados(Fila fila) throws IOException{
+	public List<Chamado> listarChamados(Fila fila) throws IOException{
 		
-		ArrayList<Chamado> listaChamados = new ArrayList<>();								
+		List<Chamado> listaChamados = new ArrayList<>();								
 		listaChamados = dao.listarChamados(fila);			
 		return listaChamados;					 
 					

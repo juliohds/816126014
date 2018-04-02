@@ -3,8 +3,16 @@ package br.usjt.arqsw.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * 
@@ -12,21 +20,36 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@Table(name="Chamado")
 public class Chamado implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	public static final String ABERTO = "aberto";
 	public static final String FECHADO = "fechado";
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_chamado")	
 	private int id;   
-	
-	@NotNull(message="A DescriÁ„o n√£o pode ser vazia")	
+		
+	@NotNull	
+	@Column(name="Descricao")
+	@Size(max=100,min=10, message="O tamanho da descri√ß√£o deve estar entre 10 e 100 caracteres")
 	private String Descricao;  
 	
-	private String Status;    
+	@NotNull
+	private String Status; 
+	
+	@NotNull
+	@Column(name="Dt_abertura")	
 	private Date DT_ABERTURA; 	
-	private Date DT_FECHAMENTO;   
+	
+	@Column(name="Dt_fechamento")	
+	private Date DT_FECHAMENTO;  
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name="id_fila")
 	private Fila fila;
 	
 	public int getId() {

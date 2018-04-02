@@ -2,8 +2,11 @@ package br.usjt.arqsw.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.Min;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 /**
@@ -11,19 +14,22 @@ import javax.validation.constraints.Size;
  * @author julio 816126014
  *
  */
+
 @Entity
 public class Fila implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@NotNull(message="A fila não pode ser vazia")
-	@Min(value=1, message="A fila não pode ser vazia")
+	
+	@Id	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_fila")
 	private int id;
 	
 	@NotNull
 	@Size(min=5, max=45, message="O nome da fila deve estar entre 5 e 45 caracteres.")
+	@Column(name="nm_fila")
 	private String nome;
 	
 	public int getId() {

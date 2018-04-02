@@ -1,10 +1,9 @@
 package br.usjt.arqsw.controller;
 
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import br.usjt.arqsw.service.FilaService;
  *
  */
 
+@Transactional
 @Controller
 public class ManterChamadosController {
 	
@@ -50,9 +50,7 @@ public class ManterChamadosController {
 	private List<Fila> listarFilas() throws IOException{
 			return filaService.listarFilas();
 	}
-		
-		
-	
+					
 	/**
 	 * 
 	 * @param model Acesso à request http
@@ -84,8 +82,8 @@ public class ManterChamadosController {
 	@RequestMapping("/novo_chamado")
 	public String criarChamado(@Valid Chamado chamado, BindingResult result, Model model) {
 			try {
-				int id = chamadoService.criarChamado(chamado);
-				chamado.setId(id);
+				chamadoService.criarChamado(chamado);
+				//chamado.setId(id);
 				return "ChamadoCriadoComSucesso";
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -108,7 +106,7 @@ public class ManterChamadosController {
 			fila = filaService.carregar(fila.getId());	
 			model.addAttribute("fila", fila);
 			
-			ArrayList<Chamado> chamados = chamadoService.listarChamados(fila);
+			List<Chamado> chamados = chamadoService.listarChamados(fila);
 			model.addAttribute("chamados", chamados);
 			
 			return "ChamadoListarExibir";
