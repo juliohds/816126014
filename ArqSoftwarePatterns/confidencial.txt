@@ -1,0 +1,3 @@
+ Estas informações são confidenciais,
+ o que significa que provavelmente só você sabe a senha.
+ - Só quem tem a senha consegue ver esse teste
