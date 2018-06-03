@@ -1,11 +1,6 @@
 package Exercicio2_3_FactoryMethod;
 
- /**
- * 
- * @author Leonardo Santiago Gonçalves 81612334 SI3AN-MCA
- * 			
- *
- */
+
 import javax.swing.JOptionPane;
 
 public class ExecutarNumero {
